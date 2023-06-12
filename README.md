@@ -29,23 +29,14 @@ The Fake Database API provides the following endpoints:
 - **User Endpoints**:
     - `GET /users`: Retrieve a list of all users.
     - `GET /users/:id`: Get details of a specific user.
-    - `POST /users`: Create a new user.
-    - `PUT /users/:id`: Update an existing user.
-    - `DELETE /users/:id`: Delete a user.
 
 - **Contact Endpoints**:
     - `GET /users/:userId/contacts`: Retrieve all contacts associated with a user.
     - `GET /users/:userId/contacts/:contactId`: Get details of a specific contact.
-    - `POST /users/:userId/contacts`: Create a new contact for a user.
-    - `PUT /users/:userId/contacts/:contactId`: Update an existing contact.
-    - `DELETE /users/:userId/contacts/:contactId`: Delete a contact.
 
 - **Message Endpoints**:
     - `GET /users/:userId/messages`: Retrieve all messages sent or received by a user.
     - `GET /users/:userId/messages/:messageId`: Get details of a specific message.
-    - `POST /users/:userId/messages`: Send a new message.
-    - `PUT /users/:userId/messages/:messageId`: Update an existing message.
-    - `DELETE /users/:userId/messages/:messageId`: Delete a message.
 
 For detailed information on each endpoint, refer to the API documentation.
 
