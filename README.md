@@ -16,9 +16,9 @@ To get started with the Fake Database API, follow these steps:
 
 1. Clone the repository to your local development environment.
 
-2. Install the required dependencies by running `npm install`.
+2. Install the required dependencies by running `composer update`.
 
-3. Start the API server by running `npm start`.
+3. Start the API server by running `php artisan serve`.
 
 4. Once the server is running, you can interact with the API using HTTP requests.
 
