@@ -23,7 +23,7 @@ class MessagesTableSeeder extends Seeder
                 'text_message' => $faker->sentence,
                 'flag' => $faker->boolean,
                 'created_at' => $faker->dateTimeBetween('-1 year', 'now'),
-                'updated_at' => $faker->dateTimeBetween('-1 year', 'now'),
+                'updated_at' => now(),
             ]);
         }
     }

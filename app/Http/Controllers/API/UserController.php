@@ -4,28 +4,25 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
     /**
-     * Display all users.
+     * Display users.
      */
-    public function all()
+    public function index(Request $request)
     {
-        $users = User::join('user_details', 'users.id', '=', 'user_details.user_id')
-            ->get();
+        $users = User::join('user_details', 'users.id', '=', 'user_details.user_id');
 
-        return response()->json($users);
-    }
-
-
-    /**
-     * Display 15 users.
-     */
-    public function users15()
-    {
-        $users = User::join('user_details', 'users.id', '=', 'user_details.user_id')
-            ->paginate();
+        // Check if a limit parameter is provided
+        if ($request->has('limit')) {
+            $limit = $request->query('limit');
+            $users = $users->paginate($limit);
+        } else {
+            // Fetch all users if no limit parameter is provided
+            $users = $users->get();
+        }
 
         return response()->json($users);
     }
