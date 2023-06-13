@@ -14,5 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/users', [UserController::class, 'index']);
-Route::get('/users/{id}', [UserController::class, 'show']);
+Route::get('/users/all', [UserController::class, 'all'])->name('users.all');
+Route::get('/users/users15', [UserController::class, 'users15'])->name('users.users15');
+Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');

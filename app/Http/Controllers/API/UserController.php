@@ -4,32 +4,34 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display all users.
      */
-    public function index()
+    public function all()
     {
         $users = User::join('user_details', 'users.id', '=', 'user_details.user_id')
-            ->paginate(10);
+            ->get();
 
         return response()->json($users);
     }
 
 
     /**
-     * Store a newly created resource in storage.
+     * Display 15 users.
      */
-    public function store(Request $request)
+    public function users15()
     {
-        //
+        $users = User::join('user_details', 'users.id', '=', 'user_details.user_id')
+            ->paginate();
+
+        return response()->json($users);
     }
 
     /**
-     * Display the specified resource.
+     * Display user.
      */
     public function show(string $id)
     {
@@ -39,20 +41,4 @@ class UserController extends Controller
         return response()->json($user);
     }
 
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }
