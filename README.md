@@ -14,9 +14,13 @@ To get started with the Fake Database API, follow these steps:
 
 2. Install the required dependencies by running `composer update`.
 
-3. Start the API server by running `php artisan serve`.
+3. Configure the database connection by updating the `.env` file with your database credentials.
 
-4. Once the server is running, you can interact with the API using HTTP requests.
+4. Start the API server by running `php artisan serve`.
+
+5. Run migrations and seed the database by running `php artisan migrate --seed`.
+
+6. Once the server is running, you can research with the API using HTTP requests.
 
 ## API Endpoints
 
