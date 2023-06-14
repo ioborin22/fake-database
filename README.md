@@ -31,12 +31,11 @@ The Fake Database API provides the following endpoints:
     - `GET /users/:id`: Get details of a specific user.
 
 - **Contact Endpoints**:
-    - `GET /users/:userId/contacts`: Retrieve all contacts associated with a user.
-    - `GET /users/:userId/contacts/:contactId`: Get details of a specific contact.
+    - `GET /contacts/:user_id`: Retrieve all contacts associated with a user.
 
 - **Message Endpoints**:
-    - `GET /users/:userId/messages`: Retrieve all messages sent or received by a user.
-    - `GET /users/:userId/messages/:messageId`: Get details of a specific message.
+    - `GET /messages/sender_id`: Retrieve all messages sent or received by a user.
+    - `GET /messages/sender_id/receiver_id`: Get all messages between a sender and a receiver.
 
 For detailed information on each endpoint, refer to the API documentation.
 
