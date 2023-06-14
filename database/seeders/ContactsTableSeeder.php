@@ -15,23 +15,16 @@ class ContactsTableSeeder extends Seeder
         for ($i = 0; $i < 100; $i++) {
             $userId = $faker->numberBetween(1, 100);
             $contactId = $faker->numberBetween(1, 100);
-            $blockContactId = null;
 
-            if ($faker->boolean(50)) {
-                // Set block_contact_id to null if contact_id is not null
-                $blockContactId = $faker->numberBetween(1, 100);
-                $contactId = null;
-            }
+            $relationship = $faker->randomElement(['contact', 'block']);
 
             DB::table('contacts')->insert([
                 'user_id' => $userId,
                 'contact_id' => $contactId,
-                'block_contact_id' => $blockContactId,
+                'relationship' => $relationship,
                 'created_at' => $faker->dateTimeBetween('-1 year', 'now'),
-                'updated_at' => $faker->dateTimeBetween('-1 year', 'now')
+                'updated_at' => now(),
             ]);
         }
     }
-
 }
-

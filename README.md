@@ -4,11 +4,7 @@ The Fake Database API is a simulated API that provides a mock database with user
 
 ## Features
 
-- **User Management**: The API allows you to create, retrieve, update, and delete user records. Each user has a unique identifier, name, email, and other customizable fields.
-
-- **Contact Management**: You can manage contacts associated with each user. Contacts have attributes such as name, email, phone number, and additional custom fields.
-
-- **Message Handling**: The API enables you to send and receive messages between users. Messages contain information such as sender, recipient, timestamp, subject, and message content.
+This fake database API provides a read-only view of the data.
 
 ## Getting Started
 
