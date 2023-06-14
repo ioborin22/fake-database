@@ -27,15 +27,31 @@ To get started with the Fake Database API, follow these steps:
 The Fake Database API provides the following endpoints:
 
 - **User Endpoints**:
-    - `GET /users`: Retrieve a list of all users.
-    - `GET /users/:id`: Get details of a specific user.
+    - `GET /users`: Get a list of all users.
+    - `GET /users/:id`: Get details of a user.
 
 - **Contact Endpoints**:
-    - `GET /contacts/:user_id`: Retrieve all contacts associated with a user.
+    - `GET /contacts/:user_id`: Get all contacts associated with a user.
 
 - **Message Endpoints**:
-    - `GET /messages/sender_id`: Retrieve all messages sent or received by a user.
-    - `GET /messages/sender_id/receiver_id`: Get all messages between a sender and a receiver.
+    - `GET /messages/:sender_id`: Get all messages sent or received by a user.
+    - `GET /messages/:sender_id/:receiver_id`: Get all messages between a sender and a receiver.
+
+- **Employer Endpoints**:
+    - `GET /employers`: Get a list of all employers.
+    - `GET /employers/:id`: Get details of an employer.
+
+- **Post Endpoints**:
+    - `GET /posts`: Get a list of all posts.
+    - `GET /posts/:id`: Get details of a post.
+
+- **Order Endpoints**:
+    - `GET /orders`: Get a list of all orders.
+    - `GET /orders/:id`: Get details of an order.
+
+- **Comment Endpoints**:
+    - `GET /comments`: Get a list of all comments.
+    - `GET /comments/:id`: Get details of a comment.
 
 For detailed information on each endpoint, refer to the API documentation.
 
