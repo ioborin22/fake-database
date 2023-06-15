@@ -13,13 +13,17 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
+        $categories = ['Electronics', 'Clothing', 'Home Decor', 'Beauty', 'Books', 'Sports & Outdoors', 'Toys & Games', 'Health & Wellness', 'Kitchen & Dining', 'Furniture', 'Jewelry', 'Automotive'];
+
         $faker = Faker::create();
 
-        for ($i = 0; $i < 10; $i++) {
+        foreach ($categories as $category) {
             Category::create([
-                'name' => $faker->word,
+                'name' => $category,
                 'description' => $faker->sentence,
             ]);
         }
     }
+
+
 }

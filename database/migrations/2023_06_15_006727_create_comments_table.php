@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('employer_id');
-            $table->unsignedBigInteger('image_id');
-            $table->unsignedBigInteger('order_id');
-            $table->unsignedBigInteger('post_id');
+            $table->unsignedBigInteger('employer_id')->nullable();
+            $table->unsignedBigInteger('image_id')->nullable();
+            $table->unsignedBigInteger('post_id')->nullable();
+            $table->unsignedBigInteger('product_id')->nullable();
+
             $table->unsignedBigInteger('user_id');
 
             $table->text('content');
@@ -24,8 +25,9 @@ return new class extends Migration
 
             $table->foreign('employer_id')->references('id')->on('employers')->onDelete('cascade');
             $table->foreign('image_id')->references('id')->on('images')->onDelete('cascade');
-            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
             $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

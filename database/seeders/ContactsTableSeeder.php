@@ -16,7 +16,7 @@ class ContactsTableSeeder extends Seeder
             $userId = $faker->numberBetween(1, 100);
             $contactId = $faker->numberBetween(1, 100);
 
-            $relationship = $faker->randomElement(['contact', 'block']);
+            $relationship = $faker->randomElement(['added', 'blocked']);
 
             DB::table('contacts')->insert([
                 'user_id' => $userId,

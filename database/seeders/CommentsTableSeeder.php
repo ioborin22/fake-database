@@ -3,11 +3,11 @@
 namespace Database\Seeders;
 
 use App\Models\Comment;
+use App\Models\Product;
 use App\Models\User;
 use App\Models\Post;
 use App\Models\Employer;
 use App\Models\Image;
-use App\Models\Order;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 
@@ -24,7 +24,7 @@ class CommentsTableSeeder extends Seeder
         $posts = Post::pluck('id')->toArray();
         $employers = Employer::pluck('id')->toArray();
         $images = Image::pluck('id')->toArray();
-        $orders = Order::pluck('id')->toArray();
+        $products = Product::pluck('id')->toArray();
 
         for ($i = 0; $i < 20; $i++) {
             Comment::create([
@@ -33,7 +33,7 @@ class CommentsTableSeeder extends Seeder
                 'post_id' => $faker->randomElement($posts),
                 'employer_id' => $faker->randomElement($employers),
                 'image_id' => $faker->randomElement($images),
-                'order_id' => $faker->randomElement($orders),
+                'product_id' => $faker->randomElement($products),
             ]);
         }
     }

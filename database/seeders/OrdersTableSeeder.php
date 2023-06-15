@@ -20,13 +20,20 @@ class OrdersTableSeeder extends Seeder
         $users = User::pluck('id')->toArray();
         $products = Product::pluck('id')->toArray();
 
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 1000; $i++) {
+            $quantity = $faker->numberBetween(1, 5);
+            $product_id = $faker->randomElement($products);
+            $product = Product::find($product_id);
+            $total_amount = $product->price * $quantity;
+
+            $order_number = $faker->unique()->randomNumber(6);
+
             Order::create([
-                'order_number' => $faker->unique()->randomNumber(),
-                'total_amount' => $faker->randomFloat(2, 10, 100),
+                'order_number' => $order_number,
+                'total_amount' => $total_amount,
                 'user_id' => $faker->randomElement($users),
-                'product_id' => $faker->randomElement($products),
-                'quantity' => $faker->numberBetween(1, 10),
+                'product_id' => $product_id,
+                'quantity' => $quantity,
             ]);
         }
     }
