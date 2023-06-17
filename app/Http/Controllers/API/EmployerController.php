@@ -36,7 +36,11 @@ class EmployerController extends Controller
             ->where('employers.id', $id)
             ->firstOrFail();
 
-        $comments = Comment::where('employer_id', $id)->pluck('comment')->toArray();
+        $comments = Comment::where('comments.employer_id', $id)
+            ->join('users', 'comments.user_id', '=', 'users.id')
+            ->join('user_details', 'users.id', '=', 'user_details.user_id')
+            ->select('user_details.first_name', 'user_details.middle_name', 'user_details.last_name', 'users.email', 'comments.comment')
+            ->get();
 
         $employer['comments'] = $comments;
 
