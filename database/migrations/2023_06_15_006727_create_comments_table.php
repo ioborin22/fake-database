@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('product_id')->nullable();
 
             $table->unsignedBigInteger('user_id');
-
+            $table->unsignedInteger('rating')->default(0);
             $table->text('comment');
             $table->timestamps();
 

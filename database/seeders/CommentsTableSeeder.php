@@ -28,13 +28,16 @@ class CommentsTableSeeder extends Seeder
 
         for ($i = 0; $i < 100; $i++) {
             Comment::create([
-                'comment' => $faker->text,
-                'user_id' => $faker->randomElement($users),
-                'post_id' => $faker->randomElement($posts),
+
                 'employer_id' => $faker->randomElement($employers),
                 'image_id' => $faker->randomElement($images),
+                'post_id' => $faker->randomElement($posts),
                 'product_id' => $faker->randomElement($products),
+                'user_id' => $faker->randomElement($users),
+                'rating' => $faker->numberBetween(1, 5),
+                'comment' => $faker->text,
             ]);
         }
     }
+
 }
