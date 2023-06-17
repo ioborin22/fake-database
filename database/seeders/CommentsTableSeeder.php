@@ -26,9 +26,9 @@ class CommentsTableSeeder extends Seeder
         $images = Image::pluck('id')->toArray();
         $products = Product::pluck('id')->toArray();
 
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             Comment::create([
-                'content' => $faker->text,
+                'comment' => $faker->text,
                 'user_id' => $faker->randomElement($users),
                 'post_id' => $faker->randomElement($posts),
                 'employer_id' => $faker->randomElement($employers),

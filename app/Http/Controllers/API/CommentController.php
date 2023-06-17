@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -12,7 +13,16 @@ class CommentController extends Controller
      */
     public function index(Request $request)
     {
-        //
+        $comments = Comment::query();
+
+        if ($request->has('limit')) {
+            $limit = $request->query('limit');
+            $comments = $comments->paginate($limit);
+        } else {
+            $comments = $comments->get();
+        }
+
+        return response()->json($comments);
     }
 
     /**
@@ -20,6 +30,8 @@ class CommentController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $comments = Comment::findOrFail($id);
+
+        return response()->json($comments);
     }
 }

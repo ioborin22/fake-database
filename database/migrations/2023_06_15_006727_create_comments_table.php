@@ -20,7 +20,7 @@ return new class extends Migration
 
             $table->unsignedBigInteger('user_id');
 
-            $table->text('content');
+            $table->text('comment');
             $table->timestamps();
 
             $table->foreign('employer_id')->references('id')->on('employers')->onDelete('cascade');

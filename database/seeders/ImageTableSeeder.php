@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Employer;
+use App\Models\Product;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 use App\Models\Image;
@@ -16,22 +18,38 @@ class ImageTableSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        $posts = Post::all();
+        $employers = Employer::pluck('id')->toArray();
+        $posts = Post::pluck('id')->toArray();
+        $products = Product::pluck('id')->toArray();
 
-        foreach ($posts as $post) {
-            for ($i = 0; $i < 3; $i++) {
-                $filename = $faker->word . '.' . $faker->fileExtension;
-                $employerId = $faker->numberBetween(1, 100);
-                $orderId = $faker->numberBetween(1, 10); // Assuming the maximum order_id value is 100
+        foreach ($employers as $employerId) {
+            Image::create([
+                'image_name' => $faker->word . '.' . $faker->fileExtension,
+                'image_url' => $faker->imageUrl(),
+                'employer_id' => $employerId,
+                'post_id' => null,
+                'product_id' => null,
+            ]);
+        }
 
-                Image::create([
-                    'filename' => $filename,
-                    'url' => $faker->imageUrl(),
-                    'employer_id' => $employerId,
-                    'order_id' => $orderId,
-                    'post_id' => $post->id,
-                ]);
-            }
+        foreach ($posts as $postId) {
+            Image::create([
+                'image_name' => $faker->word . '.' . $faker->fileExtension,
+                'image_url' => $faker->imageUrl(),
+                'employer_id' => null,
+                'post_id' => $postId,
+                'product_id' => null,
+            ]);
+        }
+
+        foreach ($products as $productId) {
+            Image::create([
+                'image_name' => $faker->word . '.' . $faker->fileExtension,
+                'image_url' => $faker->imageUrl(),
+                'employer_id' => null,
+                'post_id' => null,
+                'product_id' => $productId,
+            ]);
         }
     }
 }

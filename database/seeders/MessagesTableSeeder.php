@@ -18,8 +18,8 @@ class MessagesTableSeeder extends Seeder
             $recipientId = $users->except($userId)->random();
 
             DB::table('messages')->insert([
-                'receiver' => $recipientId,
-                'sender' => $userId,
+                'receiver_id' => $recipientId,
+                'sender_id' => $userId,
                 'text_message' => $faker->sentence,
                 'flag' => $faker->boolean,
                 'created_at' => $faker->dateTimeBetween('-1 year', 'now'),

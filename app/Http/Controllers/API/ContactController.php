@@ -3,47 +3,35 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Contact;
 use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display contacts.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $contacts = Contact::query();
+
+        if ($request->has('limit')) {
+            $limit = $request->query('limit');
+            $contacts = $contacts->paginate($limit);
+        } else {
+            $contacts = $contacts->get();
+        }
+
+        return response()->json($contacts);
     }
 
     /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
+     * Display contact.
      */
     public function show(string $id)
     {
-        //
-    }
+        $contacts = Contact::findOrFail($id);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return response()->json($contacts);
     }
 }

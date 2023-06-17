@@ -16,17 +16,17 @@ class PostTableSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        $users = User::all();
+        for ($i = 0; $i < 100; $i++) {
+            $user_id = $faker->numberBetween(1, 100);
 
-        foreach ($users as $user) {
-            for ($i = 0; $i < 50; $i++) {
-                Post::create([
-                    'title' => $faker->sentence,
-                    'description' => $faker->paragraph,
-                    'content' => $faker->text,
-                    'user_id' => $user->id,
-                ]);
-            }
+            Post::create([
+                'title' => $faker->sentence,
+                'description' => $faker->paragraph,
+                'content' => $faker->text,
+                'user_id' => $user_id,
+            ]);
         }
     }
 }
+
+
