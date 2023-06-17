@@ -53,6 +53,28 @@
     </ul>
 </div>
 
+<div class="container mx-auto p-8">
+    <h2 class="text-3xl font-bold mb-8">Fake Products</h2>
+    <ul class="api-list space-y-4 text-center">
+        <li class="border border-gray-300 rounded p-4">
+            <a href="{{ route('products.index') }}" class="text-blue-500 text-xl">/products</a>
+            <p class="text-gray-600 mt-2">Get all products</p>
+        </li>
+        <li class="border border-gray-300 rounded p-4">
+            <a href="{{ route('products.show', $id=1) }}" class="text-blue-500 text-xl">/products/{<b>id</b>}</a>
+            <p class="text-gray-600 mt-2">Get product by ID (e.g., the first product)</p>
+        </li>
+        <li class="border border-gray-300 rounded p-4">
+            <a href="{{ route('products.index', ['page' => 1, 'limit' => 15]) }}" class="text-blue-500 text-xl">/products?page={<b>number</b>}&limit={<b>quantity</b>}</a>
+            <p class="text-gray-600 mt-2">Get products with pagination (e.g., 15 products per page)</p>
+        </li>
+        <li class="border border-gray-300 rounded p-4">
+            <a href="{{ route('products.index', ['limit' => 30]) }}" class="text-blue-500 text-xl">/products?limit={<b>quantity</b>}</a>
+            <p class="text-gray-600 mt-2">Get products without pagination (e.g., 30 products)</p>
+        </li>
+    </ul>
+</div>
+
 
 </body>
 

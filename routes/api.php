@@ -7,6 +7,7 @@ use App\Http\Controllers\API\ImageController;
 use App\Http\Controllers\API\MessageController;
 use App\Http\Controllers\API\OrderController;
 use App\Http\Controllers\API\PostController;
+use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,9 @@ Route::get('/contacts/{id}', [ContactController::class, 'index'])->name('contact
 
 Route::get('/employers', [EmployerController::class, 'index'])->name('employers.index');
 Route::get('/employers/{id}', [EmployerController::class, 'show'])->name('employers.show');
+
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
 
 Route::get('/images', [ImageController::class, 'index'])->name('images.index');
 Route::get('/images/{id}', [ImageController::class, 'show'])->name('images.show');
