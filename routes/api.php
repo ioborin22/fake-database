@@ -26,6 +26,8 @@ Route::get('/comments', [CommentController::class, 'index'])->name('comments.ind
 Route::get('/comments/{id}', [CommentController::class, 'show'])->name('comments.show');
 
 Route::get('/contacts/{id}', [ContactController::class, 'index'])->name('contacts.index');
+Route::get('/contacts/{id}/added', [ContactController::class, 'added'])->name('contacts.added');
+Route::get('/contacts/{id}/blocked', [ContactController::class, 'blocked'])->name('contacts.blocked');
 
 Route::get('/employers', [EmployerController::class, 'index'])->name('employers.index');
 Route::get('/employers/{id}', [EmployerController::class, 'show'])->name('employers.show');

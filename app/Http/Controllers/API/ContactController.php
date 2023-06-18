@@ -9,11 +9,11 @@ use Illuminate\Http\Request;
 class ContactController extends Controller
 {
     /**
-     * Display contacts.
+     * Display all user contacts by user ID.
      */
-    public function index(Request $request)
+    public function index(string $id, Request $request)
     {
-        $contacts = Contact::query();
+        $contacts = Contact::where('user_id', $id);
 
         if ($request->has('limit')) {
             $limit = $request->query('limit');
@@ -25,12 +25,24 @@ class ContactController extends Controller
         return response()->json($contacts);
     }
 
+
     /**
-     * Display contact.
+     * Display user's added contacts.
      */
-    public function show(string $id)
+    public function added(string $id)
     {
-        $contacts = Contact::findOrFail($id);
+        $contacts = Contact::where('user_id', $id)->where('relationship', 'added')->get();
+
+        return response()->json($contacts);
+    }
+
+
+    /**
+     * Display user's blocked contacts.
+     */
+    public function blocked(string $id)
+    {
+        $contacts = Contact::where('user_id', $id)->where('relationship', 'blocked')->get();
 
         return response()->json($contacts);
     }
