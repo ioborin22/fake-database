@@ -120,7 +120,7 @@
 </div>
 
 <div class="container mx-auto p-8">
-    <h2 class="text-3xl font-bold mb-8">Fake Contacts</h2>
+    <h2 class="text-3xl font-bold mb-8">Fake User Contacts</h2>
     <ul class="api-list space-y-4 text-center">
         <li class="border border-gray-300 rounded p-4">
             <a href="{{ route('contacts.index', $id=1, ['page' => 1, 'limit' => 15]) }}" class="text-blue-500 text-xl">/contacts/<b>{id}</b></a>
@@ -133,6 +133,20 @@
         <li class="border border-gray-300 rounded p-4">
             <a href="{{ route('contacts.blocked', $id=1) }}" class="text-blue-500 text-xl">/contacts/<b>{id}</b>/blocked</a>
             <p class="text-gray-600 mt-2">Get blocked contacts by ID (e.g., the first user, id=1)</p>
+        </li>
+    </ul>
+</div>
+
+<div class="container mx-auto p-8">
+    <h2 class="text-3xl font-bold mb-8">Fake Messages</h2>
+    <ul class="api-list space-y-4 text-center">
+        <li class="border border-gray-300 rounded p-4">
+            <a href="{{ route('messages.index', $sender_id=1) }}" class="text-blue-500 text-xl">/messages/<b>{id}</b></a>
+            <p class="text-gray-600 mt-2">Get all messages by ID (e.g., the first message, sender_id=1)</p>
+        </li>
+        <li class="border border-gray-300 rounded p-4">
+            <a href="{{ route('messages.show', [$sender_id=1, $receiver_id=2]) }}" class="text-blue-500 text-xl">/messages/<b>{sender_id}</b>/<b>{receiver_id}</b></a>
+            <p class="text-gray-600 mt-2">Get messages with pagination (e.g., 15 messages per page)</p>
         </li>
     </ul>
 </div>

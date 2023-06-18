@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 use Faker\Factory as Faker;
+use Illuminate\Support\Facades\DB;
 
 class MessagesTableSeeder extends Seeder
 {
@@ -12,19 +12,22 @@ class MessagesTableSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        $users = DB::table('users')->pluck('id');
+        $usersSender = DB::table('users')->pluck('id');
+        $usersReceiver = DB::table('users')->pluck('id');
 
-        foreach ($users as $userId) {
-            $recipientId = $users->except($userId)->random();
-
-            DB::table('messages')->insert([
-                'receiver_id' => $recipientId,
-                'sender_id' => $userId,
-                'text_message' => $faker->sentence,
-                'flag' => $faker->boolean,
-                'created_at' => $faker->dateTimeBetween('-1 year', 'now'),
-                'updated_at' => now(),
-            ]);
+        foreach ($usersSender as $senderId) {
+            foreach ($usersReceiver as $recipientId) {
+                for ($i = 0; $i < 10; $i++) {
+                    DB::table('messages')->insert([
+                        'sender_id' => $senderId,
+                        'receiver_id' => $recipientId,
+                        'text_message' => $faker->sentence,
+                        'flag' => $faker->boolean,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]);
+                }
+            }
         }
     }
 }
