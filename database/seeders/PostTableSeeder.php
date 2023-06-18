@@ -20,13 +20,11 @@ class PostTableSeeder extends Seeder
             $user_id = $faker->numberBetween(1, 100);
 
             Post::create([
-                'title' => $faker->sentence,
-                'description' => $faker->paragraph,
-                'content' => $faker->text,
+                'title' => $faker->sentence($nbWords = 10, $variableNbWords = true),
+                'description' => $faker->paragraph($nbSentences = 3, $variableNbSentences = true),
+                'content' => $faker->realText($maxNbChars = 2000, $indexSize = 2),
                 'user_id' => $user_id,
             ]);
         }
     }
 }
-
-

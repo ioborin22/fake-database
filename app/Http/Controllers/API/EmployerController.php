@@ -16,15 +16,25 @@ class EmployerController extends Controller
      */
     public function index(Request $request)
     {
-        // Cache key for storing the employers data
-        $cacheKey = 'employers';
+        // Check if caching is enabled
+        $useCache = $request->query('cache', false);
 
-        // Retrieve employers from cache or query the database
-        $employers = Cache::remember($cacheKey, 3600, function () {
-            return Employer::leftJoin('images', 'employers.id', '=', 'images.employer_id')
+        if ($useCache) {
+            // Cache key for storing the employers data
+            $cacheKey = 'employers';
+
+            // Retrieve employers from cache or query the database
+            $employers = Cache::remember($cacheKey, 3600, function () {
+                return Employer::leftJoin('images', 'employers.id', '=', 'images.employer_id')
+                    ->select('employers.*', 'images.image_name', 'images.image_url')
+                    ->get();
+            });
+        } else {
+            // Retrieve employers directly from the database
+            $employers = Employer::leftJoin('images', 'employers.id', '=', 'images.employer_id')
                 ->select('employers.*', 'images.image_name', 'images.image_url')
                 ->get();
-        });
+        }
 
         // Check if pagination parameters are provided
         if ($request->has('limit')) {
@@ -45,7 +55,7 @@ class EmployerController extends Controller
             $comments = Comment::where('comments.employer_id', $employer->id)
                 ->join('users', 'comments.user_id', '=', 'users.id')
                 ->join('user_details', 'users.id', '=', 'user_details.user_id')
-                ->select('user_details.first_name', 'user_details.middle_name', 'user_details.last_name', 'users.email', 'comments.rating', 'comments.comment', 'comments.created_at', 'comments.updated_at')
+                ->select('user_details.user_id', 'user_details.first_name', 'user_details.middle_name', 'user_details.last_name', 'users.email', 'comments.rating', 'comments.comment', 'comments.created_at', 'comments.updated_at')
                 ->get();
 
             // Add comments to the employer object
@@ -59,24 +69,39 @@ class EmployerController extends Controller
     /**
      * Display employer.
      */
-    public function show(string $id)
+    public function show(string $id, Request $request)
     {
+        // Check if caching is enabled
+        $useCache = $request->query('cache', false);
+
         // Cache key for storing the employer data
         $cacheKey = 'employer_' . $id;
 
-        // Retrieve the employer from cache or query the database
-        $employer = Cache::remember($cacheKey, 3600, function () use ($id) {
-            return Employer::leftJoin('images', 'employers.id', '=', 'images.employer_id')
+        if ($useCache) {
+            // Retrieve the employer from cache if caching is enabled
+            $employer = Cache::get($cacheKey);
+        } else {
+            $employer = null;
+        }
+
+        if (!$employer) {
+            // Fetch the employer from the database if not found in cache
+            $employer = Employer::leftJoin('images', 'employers.id', '=', 'images.employer_id')
                 ->select('employers.*', 'images.image_url', 'images.image_name')
                 ->where('employers.id', $id)
                 ->firstOrFail();
-        });
+
+            if ($useCache) {
+                // Cache the employer if caching is enabled
+                Cache::put($cacheKey, $employer, 3600);
+            }
+        }
 
         // Retrieve comments for the employer
         $comments = Comment::where('comments.employer_id', $id)
             ->join('users', 'comments.user_id', '=', 'users.id')
             ->join('user_details', 'users.id', '=', 'user_details.user_id')
-            ->select('user_details.first_name', 'user_details.middle_name', 'user_details.last_name', 'users.email', 'comments.rating', 'comments.comment', 'comments.created_at', 'comments.updated_at')
+            ->select('user_details.user_id', 'user_details.first_name', 'user_details.middle_name', 'user_details.last_name', 'users.email', 'comments.rating', 'comments.comment', 'comments.created_at', 'comments.updated_at')
             ->get();
 
         // Add comments to the employer object
@@ -85,4 +110,6 @@ class EmployerController extends Controller
         // Return the employer data as a JSON response
         return response()->json($employer);
     }
+
+
 }

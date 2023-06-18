@@ -15,7 +15,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $cacheEnabled = true; // Set this variable to true to enable caching, or false to disable caching
+        $cacheEnabled = $request->query('cache', false) === 'true'; // Check if caching is enabled
         $cacheKey = 'users_index';
         $cacheDuration = 60; // Cache duration in minutes
 
@@ -61,7 +61,7 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        $cacheEnabled = true; // Set this variable to true to enable caching, or false to disable caching
+        $cacheEnabled = request()->query('cache', false) === 'true'; // Check if caching is enabled
         $cacheKey = 'user_' . $id;
         $cacheDuration = 60; // Cache duration in minutes
 
@@ -84,6 +84,4 @@ class UserController extends Controller
 
         return response()->json($user);
     }
-
-
 }
