@@ -151,6 +151,36 @@
     </ul>
 </div>
 
+<div class="container mx-auto p-8">
+    <h2 class="text-3xl font-bold mb-8">Fake Orders</h2>
+    <ul class="api-list space-y-4 text-center">
+        <li class="border border-gray-300 rounded p-4">
+            <a href="{{ route('orders.index') }}" class="text-blue-500 text-xl">/orders</a>
+            <p class="text-gray-600 mt-2">Get all orders</p>
+        </li>
+        <li class="border border-gray-300 rounded p-4">
+            <a href="{{ route('orders.index', ['page' => 1, 'limit' => 15]) }}" class="text-blue-500 text-xl">/orders?page=<b>{number}</b>&limit=<b>{quantity}</b></a>
+            <p class="text-gray-600 mt-2">Get orders with pagination (e.g., 15 orders per page)</p>
+        </li>
+        <li class="border border-gray-300 rounded p-4">
+            <a href="{{ route('orders.index', ['limit' => 30]) }}" class="text-blue-500 text-xl">/orders?limit=<b>{quantity}</b></a>
+            <p class="text-gray-600 mt-2">Get orders without pagination (e.g., 30 orders)</p>
+        </li>
+        <li class="border border-gray-300 rounded p-4">
+            <a href="{{ route('orders.show', $id=1) }}" class="text-blue-500 text-xl">/orders/<b>{id}</b></a>
+            <p class="text-gray-600 mt-2">Get order by ID (e.g., the first user, id=1)</p>
+        </li>
+        <li class="border border-gray-300 rounded p-4">
+            <a href="{{ route('orders.show', [$id=1, 'page' => 1, 'limit' => 5]) }}" class="text-blue-500 text-xl">/orders/<b>{id}</b>?page=<b>{number}</b>&limit=<b>{quantity}</b></a>
+            <p class="text-gray-600 mt-2">Get orders by User ID with pagination (e.g., 5 orders per page)</p>
+        </li>
+        <li class="border border-gray-300 rounded p-4">
+            <a href="{{ route('orders.show', [$id=1, 'limit' => 5]) }}" class="text-blue-500 text-xl">/orders/<b>{id}</b>?limit=<b>{quantity}</b></a>
+            <p class="text-gray-600 mt-2">Get orders by User ID without pagination (e.g., 5 orders)</p>
+        </li>
+    </ul>
+</div>
+
 
 </body>
 </html>
