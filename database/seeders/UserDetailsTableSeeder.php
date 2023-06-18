@@ -46,7 +46,7 @@ class UserDetailsTableSeeder extends Seeder
                 'employer_id' => $employer->id,
                 'employer_name' => $employer->name,
                 'income' => $faker->numberBetween(20000, 100000),
-                'avatar' => $faker->imageUrl(100, 100),
+                'avatar' => $faker->imageUrl(640, 480, '', false, 'Fake Database API User ID') . $userId,
                 'online' => $faker->boolean
             ]);
         }

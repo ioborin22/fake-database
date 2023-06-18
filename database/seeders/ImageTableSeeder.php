@@ -25,7 +25,7 @@ class ImageTableSeeder extends Seeder
         foreach ($employers as $employerId) {
             Image::create([
                 'image_name' => $faker->word . '.' . $faker->fileExtension,
-                'image_url' => $faker->imageUrl(),
+                'image_url' => $faker->imageUrl(640, 480, '', false, 'Fake Database API Employer ID') . $employerId,
                 'employer_id' => $employerId,
                 'post_id' => null,
                 'product_id' => null,
@@ -35,7 +35,7 @@ class ImageTableSeeder extends Seeder
         foreach ($posts as $postId) {
             Image::create([
                 'image_name' => $faker->word . '.' . $faker->fileExtension,
-                'image_url' => $faker->imageUrl(),
+                'image_url' => $faker->imageUrl(640, 480, '', false, 'Fake Database API Post ID') . $postId,
                 'employer_id' => null,
                 'post_id' => $postId,
                 'product_id' => null,
@@ -45,7 +45,7 @@ class ImageTableSeeder extends Seeder
         foreach ($products as $productId) {
             Image::create([
                 'image_name' => $faker->word . '.' . $faker->fileExtension,
-                'image_url' => $faker->imageUrl(),
+                'image_url' => $faker->imageUrl(640, 480, '', false, 'Fake Database API Product ID') . $productId,
                 'employer_id' => null,
                 'post_id' => null,
                 'product_id' => $productId,
