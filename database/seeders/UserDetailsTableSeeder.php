@@ -43,6 +43,7 @@ class UserDetailsTableSeeder extends Seeder
                 'sex' => $faker->randomElement(['Male', 'Female']),
                 'race_ethnicity' => $faker->randomElement(['Caucasian', 'African American', 'Hispanic', 'Asian']),
                 'ssn' => $faker->numerify('###-##-####'),
+                'phone' => $faker->phoneNumber,
                 'employer_id' => $employer->id,
                 'employer_name' => $employer->name,
                 'income' => $faker->numberBetween(20000, 100000),

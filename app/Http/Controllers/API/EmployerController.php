@@ -5,9 +5,10 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
 use App\Models\Employer;
+use App\Models\User;
+use App\Models\UserDetail;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\Cache;
 
 class EmployerController extends Controller
 {
@@ -16,25 +17,10 @@ class EmployerController extends Controller
      */
     public function index(Request $request)
     {
-        // Check if caching is enabled
-        $useCache = $request->query('cache', false);
-
-        if ($useCache) {
-            // Cache key for storing the employers data
-            $cacheKey = 'employers';
-
-            // Retrieve employers from cache or query the database
-            $employers = Cache::remember($cacheKey, 3600, function () {
-                return Employer::leftJoin('images', 'employers.id', '=', 'images.employer_id')
-                    ->select('employers.*', 'images.image_name', 'images.image_url')
-                    ->get();
-            });
-        } else {
-            // Retrieve employers directly from the database
-            $employers = Employer::leftJoin('images', 'employers.id', '=', 'images.employer_id')
-                ->select('employers.*', 'images.image_name', 'images.image_url')
-                ->get();
-        }
+        // Retrieve employers directly from the database
+        $employers = Employer::leftJoin('images', 'employers.id', '=', 'images.employer_id')
+            ->select('employers.*', 'images.image_name', 'images.image_url')
+            ->get();
 
         // Check if pagination parameters are provided
         if ($request->has('limit')) {
@@ -50,7 +36,7 @@ class EmployerController extends Controller
             $employers = new LengthAwarePaginator($items, $total, $limit, $page);
         }
 
-        // Retrieve comments for each employer
+        // Retrieve comments and user details for each employer
         foreach ($employers as $employer) {
             $comments = Comment::where('comments.employer_id', $employer->id)
                 ->join('users', 'comments.user_id', '=', 'users.id')
@@ -58,8 +44,14 @@ class EmployerController extends Controller
                 ->select('user_details.user_id', 'user_details.first_name', 'user_details.middle_name', 'user_details.last_name', 'users.email', 'comments.rating', 'comments.comment', 'comments.created_at', 'comments.updated_at')
                 ->get();
 
-            // Add comments to the employer object
+            // Retrieve user details for each employer from user_details table
+            $userDetails = UserDetail::where('employer_id', $employer->id)
+                ->select('user_details.user_id as employee_id', 'user_details.first_name', 'user_details.middle_name', 'user_details.last_name', 'user_details.age', 'user_details.date_of_birth', 'user_details.street_number', 'user_details.unit_number', 'user_details.city', 'user_details.state', 'user_details.zipcode', 'user_details.sex', 'user_details.race_ethnicity', 'user_details.ssn', 'user_details.phone', 'user_details.income')
+                ->get();
+
+            // Add comments and user details to the employer object
             $employer['comments'] = $comments;
+            $employer['employees'] = $userDetails;
         }
 
         // Return the employers data as a JSON response
@@ -69,33 +61,12 @@ class EmployerController extends Controller
     /**
      * Display employer.
      */
-    public function show(string $id, Request $request)
+    public function show(string $id)
     {
-        // Check if caching is enabled
-        $useCache = $request->query('cache', false);
-
-        // Cache key for storing the employer data
-        $cacheKey = 'employer_' . $id;
-
-        if ($useCache) {
-            // Retrieve the employer from cache if caching is enabled
-            $employer = Cache::get($cacheKey);
-        } else {
-            $employer = null;
-        }
-
-        if (!$employer) {
-            // Fetch the employer from the database if not found in cache
-            $employer = Employer::leftJoin('images', 'employers.id', '=', 'images.employer_id')
-                ->select('employers.*', 'images.image_url', 'images.image_name')
-                ->where('employers.id', $id)
-                ->firstOrFail();
-
-            if ($useCache) {
-                // Cache the employer if caching is enabled
-                Cache::put($cacheKey, $employer, 3600);
-            }
-        }
+        $employer = Employer::leftJoin('images', 'employers.id', '=', 'images.employer_id')
+            ->select('employers.*', 'images.image_url', 'images.image_name')
+            ->where('employers.id', $id)
+            ->firstOrFail();
 
         // Retrieve comments for the employer
         $comments = Comment::where('comments.employer_id', $id)
@@ -104,12 +75,17 @@ class EmployerController extends Controller
             ->select('user_details.user_id', 'user_details.first_name', 'user_details.middle_name', 'user_details.last_name', 'users.email', 'comments.rating', 'comments.comment', 'comments.created_at', 'comments.updated_at')
             ->get();
 
-        // Add comments to the employer object
+        // Retrieve users from user_details where employers.id matches user_details.employer_id
+        $users = User::join('user_details', 'users.id', '=', 'user_details.user_id')
+            ->where('user_details.employer_id', $employer->id)
+            ->select('user_details.user_id as employee_id', 'user_details.first_name', 'user_details.middle_name', 'user_details.last_name', 'user_details.age', 'user_details.date_of_birth', 'user_details.street_number', 'user_details.unit_number', 'user_details.city', 'user_details.state', 'user_details.zipcode', 'user_details.sex', 'user_details.race_ethnicity', 'user_details.ssn', 'user_details.phone', 'user_details.income')
+            ->get();
+
+        // Add comments and users to the employer object
         $employer['comments'] = $comments;
+        $employer['employees'] = $users;
 
         // Return the employer data as a JSON response
         return response()->json($employer);
     }
-
-
 }

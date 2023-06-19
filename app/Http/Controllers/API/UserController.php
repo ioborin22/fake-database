@@ -28,7 +28,7 @@ class UserController extends Controller
         if (!$users) {
             // Build the query to fetch users
             $query = User::join('user_details', 'users.id', '=', 'user_details.user_id')
-                ->select('users.id', 'users.nickname', 'users.email', 'users.email_verified_at', 'users.created_at', 'users.updated_at', 'user_details.first_name', 'user_details.middle_name', 'user_details.last_name', 'user_details.age', 'user_details.date_of_birth', 'user_details.street_number', 'user_details.unit_number', 'user_details.city', 'user_details.state', 'user_details.zipcode', 'user_details.relation_to_household_head', 'user_details.sex', 'user_details.race_ethnicity', 'user_details.ssn', 'user_details.employer_id', 'user_details.employer_name', 'user_details.income', 'user_details.avatar', 'user_details.online');
+                ->select('users.id', 'users.nickname', 'users.email', 'users.email_verified_at', 'users.created_at', 'users.updated_at', 'user_details.first_name', 'user_details.middle_name', 'user_details.last_name', 'user_details.age', 'user_details.date_of_birth', 'user_details.street_number', 'user_details.unit_number', 'user_details.city', 'user_details.state', 'user_details.zipcode', 'user_details.relation_to_household_head', 'user_details.sex', 'user_details.race_ethnicity', 'user_details.ssn', 'user_details.phone', 'user_details.employer_id', 'user_details.employer_name', 'user_details.income', 'user_details.avatar', 'user_details.online');
 
             if ($request->has('limit')) {
                 $limit = $request->query('limit');

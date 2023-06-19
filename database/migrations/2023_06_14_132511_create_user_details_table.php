@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('sex')->nullable();
             $table->string('race_ethnicity')->nullable();
             $table->string('ssn')->nullable();
+            $table->string('phone')->nullable();
 
             $table->unsignedBigInteger('employer_id')->nullable();
             $table->foreign('employer_id')->references('id')->on('employers')->onDelete('cascade');
