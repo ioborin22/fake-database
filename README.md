@@ -28,7 +28,7 @@ The Fake Database API provides the following endpoints:
 
 - **User Endpoints**:
     - GET `/users`: Get a list of all users.
-    - GET `/users/:id`: Get details of a user.
+    - GET `/users/{id}`: Get details of a user.
     - GET `/users`: Get all users (e.g., 100 users).
     - GET `/users/{id}`: Get user by ID (e.g., the first user).
     - GET `/users?page={number}&limit={quantity}`: Get users with pagination (e.g., 15 users per page).
@@ -36,7 +36,7 @@ The Fake Database API provides the following endpoints:
 
 - **Employer Endpoints**:
     - GET `/employers`: Get a list of all employers.
-    - GET `/employers/:id`: Get details of an employer.
+    - GET `/employers/{id}`: Get details of an employer.
     - GET `/employers`: Get all employers (e.g., 100 employers).
     - GET `/employers/{id}`: Get employer by ID (e.g., the first employer).
     - GET `/employers?page={number}&limit={quantity}`: Get employers with pagination (e.g., 15 employers per page).
@@ -44,7 +44,7 @@ The Fake Database API provides the following endpoints:
 
 - **Post Endpoints**:
     - GET `/posts`: Get a list of all posts.
-    - GET `/posts/:id`: Get details of a post.
+    - GET `/posts/{id}`: Get details of a post.
     - GET `/posts`: Get all posts.
     - GET `/posts/{id}`: Get post by ID (e.g., the first post).
     - GET `/posts?page={number}&limit={quantity}`: Get posts with pagination (e.g., 15 posts per page).
