@@ -18,7 +18,7 @@ To get started with the Fake Database API, follow these steps:
 
 4. Start the API server by running `php artisan serve`.
 
-5. Run migrations and seed the database by running `php artisan migrate --seed`.
+5. Run migrations and seed the database by running `php artisan migrate:fresh --seed`.
 
 6. Once the server is running, you can research with the API using HTTP requests.
 
@@ -29,29 +29,56 @@ The Fake Database API provides the following endpoints:
 - **User Endpoints**:
     - `GET /users`: Get a list of all users.
     - `GET /users/:id`: Get details of a user.
-
-- **Contact Endpoints**:
-    - `GET /contacts/:user_id`: Get all contacts associated with a user.
-
-- **Message Endpoints**:
-    - `GET /messages/:sender_id`: Get all messages sent or received by a user.
-    - `GET /messages/:sender_id/:receiver_id`: Get all messages between a sender and a receiver.
+    - `GET /users`: Get all users (e.g., 100 users).
+    - `GET /users/{id}`: Get user by ID (e.g., the first user).
+    - `GET /users?page={number}&limit={quantity}`: Get users with pagination (e.g., 15 users per page).
+    - `GET /users?limit={quantity}`: Get users without pagination (e.g., 30 users).
 
 - **Employer Endpoints**:
     - `GET /employers`: Get a list of all employers.
     - `GET /employers/:id`: Get details of an employer.
+    - `GET /employers`: Get all employers (e.g., 100 employers).
+    - `GET /employers/{id}`: Get employer by ID (e.g., the first employer).
+    - `GET /employers?page={number}&limit={quantity}`: Get employers with pagination (e.g., 15 employers per page).
+    - `GET /employers?limit={quantity}`: Get employers without pagination (e.g., 30 employers).
 
 - **Post Endpoints**:
     - `GET /posts`: Get a list of all posts.
     - `GET /posts/:id`: Get details of a post.
+    - `GET /posts`: Get all posts.
+    - `GET /posts/{id}`: Get post by ID (e.g., the first post).
+    - `GET /posts?page={number}&limit={quantity}`: Get posts with pagination (e.g., 15 posts per page).
+    - `GET /posts?limit={quantity}`: Get posts without pagination (e.g., 30 posts).
+
+- **Image Endpoints**:
+    - `GET /images`: Get a list of all images.
+    - `GET /images/{id}`: Get image by ID (e.g., the first image).
+    - `GET /images?page={number}&limit={quantity}`: Get images with pagination (e.g., 15 images per page).
+    - `GET /images?limit={quantity}`: Get images without pagination (e.g., 30 images).
+
+- **Contact Endpoints**:
+    - `GET /contacts/{id}`: Get all contacts by ID (e.g., the first user, id=1).
+    - `GET /contacts/{id}/added`: Get added contacts by ID (e.g., the first user, id=1).
+    - `GET /contacts/{id}/blocked`: Get blocked contacts by ID (e.g., the first user, id=1).
+
+- **Message Endpoints**:
+    - `GET /messages/{id}`: Get all messages by ID (e.g., the first message, sender_id=1).
+    - `GET /messages/{sender_id}/{receiver_id}`: Get messages between sender_id and receiver_id.
+    - `GET /messages/{sender_id}/{receiver_id}?page={number}&limit={quantity}`: Get messages with pagination (e.g., 15 messages per page).
+
+- **Product Endpoints**:
+    - `GET /products`: Get a list of all products.
+    - `GET /products/{id}`: Get product by ID (e.g., the first product).
+    - `GET /products?page={number}&limit={quantity}`: Get products with pagination (e.g., 15 products per page).
+    - `GET /products?limit={quantity}`: Get products without pagination (e.g., 30 products).
 
 - **Order Endpoints**:
     - `GET /orders`: Get a list of all orders.
-    - `GET /orders/:id`: Get details of an order.
-
-- **Comment Endpoints**:
-    - `GET /comments`: Get a list of all comments.
-    - `GET /comments/:id`: Get details of a comment.
+    - `GET /orders?page={number}&limit={quantity}`: Get orders with pagination (e.g., 15 orders per page).
+    - `GET /orders?limit={quantity}`: Get orders without pagination (e.g., 30 orders).
+    - `GET /orders/{id}`: Get order by ID (e.g., the first order, id=1).
+    - `GET /orders/{id}?page={number}&limit={quantity}`: Get orders by User ID with pagination (e.g., 5 orders per page).
+    - `GET /orders/{id}?limit={quantity}`: Get orders by User ID without pagination (e.g., 5 orders).
 
 For detailed information on each endpoint, refer to the API documentation.
 
