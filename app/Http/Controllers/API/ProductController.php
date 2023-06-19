@@ -41,7 +41,7 @@ class ProductController extends Controller
                 ->get();
 
             // Add comments to the product object
-            $product['comments'] = $comments;
+            $product['reviews'] = $comments;
         }
 
         // Return the products data as a JSON response
@@ -69,7 +69,7 @@ class ProductController extends Controller
             ->get();
 
         // Add comments to the product object
-        $product['comments'] = $comments;
+        $product['reviews'] = $comments;
 
         // Return the product data as a JSON response
         return response()->json($product);
