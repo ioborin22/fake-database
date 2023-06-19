@@ -1,6 +1,6 @@
 # Fake Database API
 
-The Fake Database API is a simulated API that provides a mock database with users, contacts, and messages. It is designed to assist developers in testing and prototyping applications that require database interactions without the need for a real production database.
+The Fake Database API is a simulated API that provides a mock database with users, employers, posts, images, contacts, messages, products and orders. It is designed to assist developers in testing and prototyping applications that require database interactions without the need for a real production database.
 
 ## Features
 
@@ -79,8 +79,6 @@ The Fake Database API provides the following endpoints:
     - GET `/orders/{id}`: Get order by ID (e.g., the first order, id=1).
     - GET `/orders/{id}?page={number}&limit={quantity}`: Get orders by User ID with pagination (e.g., 5 orders per page).
     - GET `/orders/{id}?limit={quantity}`: Get orders by User ID without pagination (e.g., 5 orders).
-
-For detailed information on each endpoint, refer to the API documentation.
 
 ## Contributing
 
