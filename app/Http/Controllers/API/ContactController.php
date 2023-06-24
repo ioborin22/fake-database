@@ -31,10 +31,16 @@ class ContactController extends Controller
      */
     public function added(string $id)
     {
-        $contacts = Contact::where('user_id', $id)->where('relationship', 'added')->get();
+        $contacts = Contact::where('contacts.user_id', $id)
+            ->where('contacts.relationship', 'added')
+            ->join('users', 'contacts.contact_id', '=', 'users.id')
+            ->join('user_details', 'users.id', '=', 'user_details.user_id')
+            ->select('contacts.contact_id', 'users.nickname', 'user_details.first_name', 'user_details.middle_name', 'user_details.last_name', 'users.email_verified_at', 'user_details.online', 'user_details.avatar')
+            ->get();
 
         return response()->json($contacts);
     }
+
 
 
     /**
