@@ -13,7 +13,10 @@ class ContactController extends Controller
      */
     public function index(string $id, Request $request)
     {
-        $contacts = Contact::where('user_id', $id);
+        $contacts = Contact::where('contacts.user_id', $id) // Specify the table name for user_id
+        ->join('users', 'contacts.contact_id', '=', 'users.id')
+            ->join('user_details', 'users.id', '=', 'user_details.user_id')
+            ->select('contacts.contact_id', 'contacts.relationship', 'users.nickname', 'user_details.first_name', 'user_details.middle_name', 'user_details.last_name', 'users.email_verified_at', 'user_details.online', 'user_details.avatar');
 
         if ($request->has('limit')) {
             $limit = $request->query('limit');
@@ -24,7 +27,6 @@ class ContactController extends Controller
 
         return response()->json($contacts);
     }
-
 
     /**
      * Display user's added contacts.
@@ -41,14 +43,17 @@ class ContactController extends Controller
         return response()->json($contacts);
     }
 
-
-
     /**
      * Display user's blocked contacts.
      */
     public function blocked(string $id)
     {
-        $contacts = Contact::where('user_id', $id)->where('relationship', 'blocked')->get();
+        $contacts = Contact::where('contacts.user_id', $id)
+            ->where('contacts.relationship', 'blocked')
+            ->join('users', 'contacts.contact_id', '=', 'users.id')
+            ->join('user_details', 'users.id', '=', 'user_details.user_id')
+            ->select('contacts.contact_id', 'users.nickname', 'user_details.first_name', 'user_details.middle_name', 'user_details.last_name', 'users.email_verified_at', 'user_details.online', 'user_details.avatar')
+            ->get();
 
         return response()->json($contacts);
     }
