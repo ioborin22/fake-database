@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Contact;
 use App\Models\Message;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,21 @@ class MessageController extends Controller
      */
     public function index(string $id, Request $request)
     {
-        $messages = Message::where('sender_id', $id);
+        // Find your contacts by your ID where relationship is 'added'
+        $contacts = Contact::where('user_id', $id)
+            ->where('relationship', 'added')
+            ->pluck('contact_id');
+
+        // Fetch messages where one of the sender_id or receiver_id is your ID
+        // and the other ID is one of your contacts
+        $messages = Message::where(function ($query) use ($id, $contacts) {
+            $query->where('sender_id', $id)
+                ->whereIn('receiver_id', $contacts);
+        })
+            ->orWhere(function ($query) use ($id, $contacts) {
+                $query->whereIn('sender_id', $contacts)
+                    ->where('receiver_id', $id);
+            });
 
         if ($request->has('limit')) {
             $limit = $request->query('limit');
@@ -46,6 +61,4 @@ class MessageController extends Controller
 
         return response()->json($messages);
     }
-
-
 }

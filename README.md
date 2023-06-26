@@ -66,7 +66,7 @@ The Fake Database API provides the following endpoints:
     - GET `/contacts/{id}/blocked`: Get blocked contacts by ID (e.g., the first user, id=1).
 
 - **Message Endpoints**:
-    - GET `/messages/{id}`: Get all messages by ID (e.g., the first message, sender_id=1).
+    - GET `/messages/{id}`: Get all messages by ID (e.g., all messages owned by user, id=1).
     - GET `/messages/{sender_id}/{receiver_id}`: Get messages between sender_id and receiver_id.
     - GET `/messages/{sender_id}/{receiver_id}?page={number}&limit={quantity}`: Get messages with pagination (e.g., 15 messages per page).
 

@@ -38,7 +38,7 @@ Route::get('/products/{id}', [ProductController::class, 'show'])->name('products
 Route::get('/images', [ImageController::class, 'index'])->name('images.index');
 Route::get('/images/{id}', [ImageController::class, 'show'])->name('images.show');
 
-Route::get('/messages/{sender_id}', [MessageController::class, 'index'])->name('messages.index');
+Route::get('/messages/{user_id}', [MessageController::class, 'index'])->name('messages.index');
 Route::get('/messages/{sender_id}/{receiver_id}', [MessageController::class, 'show'])->name('messages.show');
 
 Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
